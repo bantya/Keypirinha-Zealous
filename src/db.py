@@ -2,11 +2,6 @@ import sqlite3
 from sqlite3 import Error
 
 def create_connection(db_file):
-    """ create a database connection to the SQLite database
-        specified by the db_file
-    :param db_file: database file
-    :return: Connection object or None
-    """
     try:
         conn = sqlite3.connect(db_file)
         return conn
@@ -15,19 +10,29 @@ def create_connection(db_file):
 
     return None
 
-def get_names(db_file, term):
-    """
-    Query all rows in the tasks table
-    :param conn: the Connection object
-    :return:
-    """
+
+def get_names(db_file, term, count):
     conn = create_connection(db_file)
     cur = conn.cursor()
-    # cur.execute('SELECT name, type FROM searchIndex LIMIT 50')
-    cur.execute('SELECT name FROM searchIndex WHERE name LIKE ? LIMIT 50', (term + '%',))
-    # query = 'SELECT name FROM searchIndex WHERE name LIKE ' + term + '%'
-    # cur.execute(query)
-    # print(query)
+    cur.execute('SELECT name FROM searchIndex WHERE name LIKE ? LIMIT ?', (
+        '%' + term + '%',
+        count,
+    ))
 
-    # return cur.fetchone()
+    return cur.fetchall()
+
+
+def get_types_names(db_file, term, count, type, type2=None):
+    type = ''.join(type)
+    conn = create_connection(db_file)
+    cur = conn.cursor()
+    if type2 is None:
+        cur.execute(
+            'SELECT name FROM searchIndex WHERE type = ? AND name LIKE ? LIMIT ?',
+            (type, '%' + term + '%', count))
+    else:
+        cur.execute(
+            'SELECT name FROM searchIndex WHERE type IN (?, ?) AND name LIKE ? LIMIT ?',
+            (type, type2, '%' + term + '%', count))
+
     return cur.fetchall()

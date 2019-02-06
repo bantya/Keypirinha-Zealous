@@ -3,20 +3,32 @@
 This is Zealous, a plugin for the
 [Keypirinha](http://keypirinha.com) launcher.
 
-**TODO:** write a brief description of this package. Optionally add a
-screenshot.
+This plugin is developed to facilitate the offline documentation search using the awesome Zeal app.
+
+| ![Zealous usage](./imgs/2019-02-07_00-27-02.gif "Zealous usage") |
+| :-: |
+| *Zealous Usage* |
+
+
+## Background
+
+[Zeal](https://zealdocs.org) is one of the best offline documentation search tool available today. Its docsets are made available by [Dash](https://kapeli.com).
+
+| ![Zeal App](./imgs/2019-02-07_00-21-47.png "Zeal App") |
+| :-: |
+| *Zeal App for Windows* |
+
+It provides the ability to install docsets for almost all of the mainstream languages, tools, toolsets and everything that can have its own docset. It can filter the results as per the result type (highlighted above 👆).
 
 
 ## Download
 
-**TODO:** indicate where the latest `.keypirinha-package` file can be
-downloaded. For example a URL to the `releases` list like:
-https://github.com/bantya/Keypirinha-Zealous/releases
+Download the latest plugin file from [here](https://github.com/bantya/Keypirinha-Zealous/releases).
 
 
 ## Install
 
-Once the `Zealous.keypirinha-package` file is installed,
+Once the `Zealous.keypirinha-package` file is downloaded,
 move it to the `InstalledPackage` folder located at:
 
 * `Keypirinha\portable\Profile\InstalledPackages` in **Portable mode**
@@ -25,46 +37,132 @@ move it to the `InstalledPackage` folder located at:
   `C:\Users\%USERNAME%\AppData\Roaming\Keypirinha\InstalledPackages`)
 
 
+## Configuration
+
+1. Open the Zealous config file.
+
+    | ![Keypirinha configuration](./imgs/2019-02-06_23-59-01.png "Keypirinha configuration") |
+    | :-: |
+    | *Zealous configuration settings.* |
+
+2. The **main** section is necessary if you installed the Zeal to non-default location. You will have to provide the **Zeal install path** and **the docsets path** in this case.
+
+    The **result** is the count of how many entries to be fetched from the Zeal docsets. **Default: 50**
+
+3. Add the entries to the **docs** section.
+* The syntax for the **docs** entry should be:
+    ```
+    [Docset mnemonic] = [The zeal docset search phrase]
+
+    e.g.
+
+    php = php
+    ld = laravel
+    js = javascript
+    sql = mysql
+    py = python
+    ```
+
+4. Add the entries to the **types** section.
+
+    Which can be seen as highlighted part in Zeal App image above 👆.
+
+    The types can be found [here](https://kapeli.com/docsets#supportedentrytypes).
+
+* The syntax for the **types** entry should be:
+    ```
+    [Type mnemonic] = [The zeal docset types]
+
+    e.g.
+
+    g = Guide
+    h = Helper
+    sec = Section
+    key = Keyword
+    ```
+
+* There are some quirks. Some dataset entrytype (as Zeal calls it) are not as exact as the specified in [here](https://kapeli.com/docsets#supportedentrytypes).
+
+    Especially, **php** along with some other docsets, does not follow the rule. So to make it play even with such docsets, we have to add the supported non-exact result types also.
+    ```
+    e.g.
+
+    f = Function,func
+    m = Method,clm
+    c = Class,cl
+    p = Property,instp
+    t = Type,tdef
+    mc = Macro,macro
+    ```
+* All the fields in the above syntax are REQUIRED.
+
+| ![Zealous config file](./imgs/2019-02-07_00-23-15.png "Zealous config file") |
+| :-: |
+| *Zealous config file.* |
+
 ## Usage
 
-**TODO:** list the items, if any, inserted to the Catalog by the plugin(s) of
-this package. Some plugins only make suggestions, in which case a description of
-what kind of suggestions are to be expected by the user may help.
+Invoke Keypirinha and put the terms as follows.
+* The syntax for the usage should be:
+    ```
+    [Docset mnemonic] [Result type]? [Search term]
+
+    e.g.
+
+    php explode  -> searches 'explode' in PHP docset
+    ld g auth  -> searches 'auth' of 'Guide' type in Laravel docset
+    js key ...obj  -> searches '...obj' of 'Keyword' type in Javascipt docset
+    ```
+* Though the usage of [Result type] is optional, using it filters the results only to that type.
+
+| ![Zealous simple search](./imgs/2019-02-07_00-23-49.png "Zealous simple search") |
+| :-: |
+| *Simple search.* |
+
+| ![Zealous simple search](./imgs/2019-02-07_00-24-18.png "Zealous simple search") |
+| :-: |
+| *Advanced search with type provided.* |
 
 
 ## Change Log
 
-**TODO:** describe notable changes for each release. Below is a template for
-version 1.0.
+### v1.0.0
 
-### v1.0
+* Bumped version to v1.0.0
+* Full working release.
+* Added advanced searching ability.
+* Updated the README.
 
-* Added foo item
-* Fixed bug that was doing bad things when item "bar" was selected
+### v0.0.2 (Unreleased)
+
+* Added docset db search.
+* Added simple searching.
+
+### v0.0.1 (Unreleased)
+
+* First working draft
 
 
 ## License
 
-**TODO:** recommended section. Below is an example that goes with the default
-LICENSE file (MIT license). Do not forget to add your name in the `LICENSE`
-file!
-
-This package is distributed under the terms of the MIT license.
+This package is distributed under the terms of the **MIT license**.
 
 
 ## Credits
 
-**TODO:** optional section.
+_Do some work and add your name here!_
 
 
 ## Contribute
 
-**TODO:** optional section. Below is a template example, based on the one found
-in Keypirinha's Packages repository.
-
+This is how to contribute:
 1. Check for open issues or open a fresh issue to start a discussion around a
    feature idea or a bug.
 2. Fork this repository on GitHub to start making your changes to the **dev**
    branch.
 3. Send a pull request.
 4. Add yourself to the *Contributors* section below (or create it if needed)!
+
+## And what?
+
+Thanks to all.
