@@ -58,12 +58,6 @@ class Zealous(kp.Plugin):
     def on_catalog(self):
         self.on_start()
 
-    def on_activated(self):
-        print('----------')
-
-    def on_deactivated(self):
-        print('----------')
-
     def on_suggest(self, user_input, items_chain):
         suggestions = []
         input = re.search(self.REGEX_INPUT, user_input)
@@ -101,6 +95,35 @@ class Zealous(kp.Plugin):
                     suggestions.append(self._set_suggestion(docid + suffix, docset, name[0]))
 
                 self.set_suggestions(suggestions)
+
+    def on_execute(self, item, action):
+        if item.category() != self.ITEM_CAT:
+            return
+
+        zeal_exe = self.settings.get_stripped('path', self.SECTION_MAIN, 'C:\\Program Files\\Zeal')
+
+        if not 'zeal.exe' in zeal_exe:
+            zeal_exe = os.path.join(zeal_exe, 'zeal.exe')
+
+        if os.path.isfile(zeal_exe):
+            try:
+                cmd = [zeal_exe]
+                cmd.append(item.target())
+                subprocess.Popen(cmd, cwd = os.path.dirname(zeal_exe))
+            except Exception as e:
+                print('Exception: Zeal - (%s)' % (e))
+        else:
+            print('Error: Could not find your %s executable.\n\nPlease edit path' % (zeal_exe))
+
+    def on_activated(self):
+        print('----------')
+
+    def on_deactivated(self):
+        print('----------')
+
+    def on_events(self, flags):
+        if flags & kp.Events.PACKCONFIG:
+            self.on_start()
 
     def _get_docset_folder(self, key):
         data = self._read_json()
@@ -189,25 +212,6 @@ class Zealous(kp.Plugin):
             )
         ]
 
-    def on_execute(self, item, action):
-        if item.category() != self.ITEM_CAT:
-            return
-
-        zeal_exe = self.settings.get_stripped('path', self.SECTION_MAIN, 'C:\\Program Files\\Zeal')
-
-        if not 'zeal.exe' in zeal_exe:
-            zeal_exe = os.path.join(zeal_exe, 'zeal.exe')
-
-        if os.path.isfile(zeal_exe):
-            try:
-                cmd = [zeal_exe]
-                cmd.append(item.target())
-                subprocess.Popen(cmd, cwd = os.path.dirname(zeal_exe))
-            except Exception as e:
-                self.dbg("Zeal - (%s)" % (e))
-        else:
-            self.err('Could not find your %s executable.\n\nPlease edit path' % (zeal_exe))
-
     def _gather_docs(self):
         self.docs = self.load_settings().keys(self.SECTION_DOCS)
 
@@ -216,7 +220,3 @@ class Zealous(kp.Plugin):
 
     def _load_settings(self):
         self.settings = self.load_settings()
-
-    def on_events(self, flags):
-        if flags & kp.Events.PACKCONFIG:
-            self.on_start()

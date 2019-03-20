@@ -5,52 +5,62 @@ This is Zealous, a plugin for the
 
 This plugin is developed to facilitate the offline documentation search using the awesome Zeal app.
 
-| ![Zealous usage](./imgs/2019-02-07_00-27-02.gif "Zealous usage") |
+| ![Zealous usage](./imgs/demo.gif "Zealous usage") |
 | :-: |
-| *Zealous Usage* |
+| *Zealous demo* |
 
 
 ## Background
 
 [Zeal](https://zealdocs.org) is one of the best offline documentation search tool available today. Its docsets are made available by [Dash](https://kapeli.com).
 
-| ![Zeal App](./imgs/2019-02-07_00-21-47.png "Zeal App") |
+| ![Zeal App](./imgs/zeal_app.png "Zeal App") |
 | :-: |
 | *Zeal App for Windows* |
 
 It provides the ability to install docsets for almost all of the mainstream languages, tools, toolsets and everything that can have its own docset. It can filter the results as per the result type (highlighted above 👆).
 
-
-## Download
-
-Download the latest plugin file from [here](https://github.com/bantya/Keypirinha-Zealous/releases).
-
-
 ## Install
 
-Once the `Zealous.keypirinha-package` file is downloaded,
-move it to the `InstalledPackage` folder located at:
+There are two ways to install:
 
-* `Keypirinha\portable\Profile\InstalledPackages` in **Portable mode**
-* **Or** `%APPDATA%\Keypirinha\InstalledPackages` in **Installed mode** (the
-  final path would look like
-  `C:\Users\%USERNAME%\AppData\Roaming\Keypirinha\InstalledPackages`)
+1. Using **[PackageControl](https://github.com/ueffel/Keypirinha-PackageControl)**:
+
+    - Invoke Keypirinha and type `install package`.
+    - Click enter.
+    - Now search for package `Keypirinha-Command`.
+    - Again press enter.
+
+2. Manual:
+
+    Download the latest plugin file from [here](https://github.com/bantya/Keypirinha-Zealous/releases/latest).
+
+    Once the `Command.keypirinha-package` file is downloaded, move it to the `InstalledPackage` folder located at:
+
+    - `Keypirinha\portable\Profile\InstalledPackages` in **Portable mode**
+    - **Or** `%APPDATA%\Keypirinha\InstalledPackages` in **Installed mode** (the
+    final path would look like
+    `C:\Users\%USERNAME%\AppData\Roaming\Keypirinha\InstalledPackages`)
+
+**NOTE:** You may have to manually restart Keypirinha to see the package activated.
 
 
 ## Configuration
 
 1. Open the Zealous config file.
 
-    | ![Keypirinha configuration](./imgs/2019-02-06_23-59-01.png "Keypirinha configuration") |
+    | ![Keypirinha configuration](./imgs/config.png "Keypirinha configuration") |
     | :-: |
-    | *Zealous configuration settings.* |
+    | *Zealous configuration menu* |
 
 2. The **main** section is necessary if you installed the Zeal to non-default location. You will have to provide the **Zeal install path** and **the docsets path** in this case.
 
     The **result** is the count of how many entries to be fetched from the Zeal docsets. **Default: 50**
 
 3. Add the entries to the **docs** section.
-* The syntax for the **docs** entry should be:
+
+- The syntax for the **docs** entry should be:
+
     ```
     [Docset mnemonic] = [The zeal docset search phrase]
 
@@ -69,7 +79,8 @@ move it to the `InstalledPackage` folder located at:
 
     The types can be found [here](https://kapeli.com/docsets#supportedentrytypes).
 
-* The syntax for the **types** entry should be:
+- The syntax for the **types** entry should be:
+
     ```
     [Type mnemonic] = [The zeal docset types]
 
@@ -81,9 +92,10 @@ move it to the `InstalledPackage` folder located at:
     key = Keyword
     ```
 
-* There are some quirks. Some dataset entrytype (as Zeal calls it) are not as exact as the specified in [here](https://kapeli.com/docsets#supportedentrytypes).
+- There are some quirks. Some dataset entrytype (as Zeal calls it) are not as exact as the specified in [here](https://kapeli.com/docsets#supportedentrytypes).
 
     Especially, **php** along with some other docsets, does not follow the rule. So to make it play even with such docsets, we have to add the supported non-exact result types also.
+
     ```
     e.g.
 
@@ -94,16 +106,19 @@ move it to the `InstalledPackage` folder located at:
     t = Type,tdef
     mc = Macro,macro
     ```
-* All the fields in the above syntax are REQUIRED.
 
-| ![Zealous config file](./imgs/2019-02-07_00-23-15.png "Zealous config file") |
+- All the fields in the above syntax are REQUIRED.
+
+| ![Zealous config file](./imgs/files.png "Zealous config file") |
 | :-: |
-| *Zealous config file.* |
+| *Zealous configuration files* |
 
 ## Usage
 
 Invoke Keypirinha and put the terms as follows.
-* The syntax for the usage should be:
+
+- The syntax for the usage should be:
+
     ```
     [Docset mnemonic] [Result type]? [Search term]
 
@@ -113,34 +128,40 @@ Invoke Keypirinha and put the terms as follows.
     ld g auth  -> searches 'auth' of 'Guide' type in Laravel docset
     js key ...obj  -> searches '...obj' of 'Keyword' type in Javascipt docset
     ```
-* Though the usage of [Result type] is optional, using it filters the results only to that type.
 
-| ![Zealous simple search](./imgs/2019-02-07_00-23-49.png "Zealous simple search") |
+| ![Zealous simple search](./imgs/usage_simple.png "Zealous simple search") |
 | :-: |
-| *Simple search.* |
+| *Zealous simple usage.* |
 
-| ![Zealous simple search](./imgs/2019-02-07_00-24-18.png "Zealous simple search") |
+- Though the usage of [Result type] is optional, using it filters the results only to that type.
+
+| ![Zealous simple search](./imgs/usage_advanced.png "Zealous simple search") |
 | :-: |
-| *Advanced search with type provided.* |
+| *Zealous advanced usage with type provided.* |
 
 
 ## Change Log
 
+### v1.0.1
+
+- Added PackageControl section in README.
+- Updated config file.
+
 ### v1.0.0
 
-* Bumped version to v1.0.0
-* Full working release.
-* Added advanced searching ability.
-* Updated the README.
+- Bumped version to v1.0.0
+- Full working release.
+- Added advanced searching ability.
+- Updated the README.
 
 ### v0.0.2 (Unreleased)
 
-* Added docset db search.
-* Added simple searching.
+- Added docset db search.
+- Added simple searching.
 
 ### v0.0.1 (Unreleased)
 
-* First working draft
+- First working draft
 
 
 ## License
