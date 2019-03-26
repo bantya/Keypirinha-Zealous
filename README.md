@@ -28,14 +28,14 @@ There are two ways to install:
 
     - Invoke Keypirinha and type `install package`.
     - Click enter.
-    - Now search for package `Keypirinha-Command`.
+    - Now search for package `Keypirinha-Zealous`.
     - Again press enter.
 
 2. Manual:
 
     Download the latest plugin file from [here](https://github.com/bantya/Keypirinha-Zealous/releases/latest).
 
-    Once the `Command.keypirinha-package` file is downloaded, move it to the `InstalledPackage` folder located at:
+    Once the `Zealous.keypirinha-package` file is downloaded, move it to the `InstalledPackage` folder located at:
 
     - `Keypirinha\portable\Profile\InstalledPackages` in **Portable mode**
     - **Or** `%APPDATA%\Keypirinha\InstalledPackages` in **Installed mode** (the
