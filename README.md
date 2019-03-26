@@ -142,6 +142,10 @@ Invoke Keypirinha and put the terms as follows.
 
 ## Change Log
 
+### v1.0.2
+
+- Corrected package-name typo.
+
 ### v1.0.1
 
 - Added PackageControl section in README.
