@@ -72,12 +72,12 @@ There are two ways to install:
     sql = mysql
     py = python
     ```
+    
+    ℹ *The zeal docset search phrase i.e. zeal doc identifier can be discoverd as explained [here](https://github.com/bantya/Keypirinha-Zealous/issues/1#issuecomment-565587630).*
 
 4. Add the entries to the **types** section.
 
     Which can be seen as highlighted part in Zeal App image above 👆.
-
-    The types can be found [here](https://kapeli.com/docsets#supportedentrytypes).
 
 - The syntax for the **types** entry should be:
 
@@ -91,6 +91,8 @@ There are two ways to install:
     sec = Section
     key = Keyword
     ```
+
+    ℹ *The docset types can be found [here](https://kapeli.com/docsets#supportedentrytypes).*
 
 - There are some quirks. Some dataset entrytype (as Zeal calls it) are not as exact as the specified in [here](https://kapeli.com/docsets#supportedentrytypes).
 
