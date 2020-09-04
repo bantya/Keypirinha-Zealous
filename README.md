@@ -55,9 +55,11 @@ There are two ways to install:
 
 2. The **main** section is necessary if you installed the Zeal to non-default location. You will have to provide the **Zeal install path** and **the docsets path** in this case.
 
-    The **result** is the count of how many entries to be fetched from the Zeal docsets. **Default: 50**
+3. The **result** is the count of how many entries to be fetched from the Zeal docsets. **Default: 50**
 
-3. Add the entries to the **docs** section.
+4. The **wildcard** if set to `yes` enables wildcards to be used to get the refined result set, else the results will be generated using fuzzy search. **Default: no**
+
+5. Add the entries to the **docs** section.
 
 - The syntax for the **docs** entry should be:
 
@@ -72,10 +74,10 @@ There are two ways to install:
     sql = mysql
     py = python
     ```
-    
+
     ℹ *The zeal docset search phrase i.e. zeal doc identifier can be discoverd as explained [here](https://github.com/bantya/Keypirinha-Zealous/issues/1#issuecomment-565587630).*
 
-4. Add the entries to the **types** section.
+6. Add the entries to the **types** section.
 
     Which can be seen as highlighted part in Zeal App image above 👆.
 
@@ -141,8 +143,25 @@ Invoke Keypirinha and put the terms as follows.
 | :-: |
 | *Zealous advanced usage with type provided.* |
 
+### When `wildcard` is set to `yes`
+
+    ```
+    [Docset mnemonic] [Result type]? [*?Search term*?]
+
+    e.g.
+
+    php expl*  -> searches entries starting with 'expl' in PHP docset
+    php *de  -> searches entries ending with 'de' in PHP docset
+    php *pl*  -> searches entries containing 'pl' anywhere in PHP docset
+    ```
 
 ## Change Log
+
+### v1.1.0
+
+- Added wildcard functionality.
+- Updated config file.
+- Bumped version to v1.1.0
 
 ### v1.0.2
 

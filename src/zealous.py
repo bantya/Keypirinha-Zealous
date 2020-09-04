@@ -48,12 +48,15 @@ class Zealous(kp.Plugin):
                     plist_path = os.path.join(self.docsets_path, folder_name, self.PLIST_FILE)
                     if os.path.isfile(plist_path):
                         with open(plist_path, 'rb') as fp:
-                            pl = plistlib.load(fp)
-                            if docset == pl["DocSetPlatformFamily"]:
-                                self.icon_path = os.path.join(self.docsets_path, folder_name)
+                            try:
+                                pl = plistlib.load(fp)
+                                if docset == pl["DocSetPlatformFamily"]:
+                                    self.icon_path = os.path.join(self.docsets_path, folder_name)
 
-                                self._save_docsets(docset, folder_name.split('.docset')[0])
-                                self._copy_icon(docset)
+                                    self._save_docsets(docset, folder_name.split('.docset')[0])
+                                    self._copy_icon(docset)
+                            except Exception :
+                                self.info('Error reading the plist file.')
 
     def on_catalog(self):
         self.on_start()
@@ -92,7 +95,7 @@ class Zealous(kp.Plugin):
                     entities = self._get_entity_names(db_path, term, count)
 
                 for name in entities:
-                    suggestions.append(self._set_suggestion(docid + suffix, docset, name[0]))
+                    suggestions.append(self._set_suggestion(docid + suffix, docset, name[0], term))
 
                 self.set_suggestions(suggestions)
 
@@ -113,13 +116,7 @@ class Zealous(kp.Plugin):
             except Exception as e:
                 print('Exception: Zeal - (%s)' % (e))
         else:
-            print('Error: Could not find your %s executable.\n\nPlease edit path' % (zeal_exe))
-
-    def on_activated(self):
-        print('----------')
-
-    def on_deactivated(self):
-        print('----------')
+            print('Error: Could not find your %s executable.\n\nPlease edit path.' % (zeal_exe))
 
     def on_events(self, flags):
         if flags & kp.Events.PACKCONFIG:
@@ -163,17 +160,21 @@ class Zealous(kp.Plugin):
         return os.path.join(self.docsets_path, docset, docfile)
 
     def _get_entity_names(self, doc, term, count):
-        return get_names(doc, term, count)
+        wildcard = self.settings.get_stripped('wildcard', self.SECTION_MAIN, 'no')
+
+        return get_names(doc, term, wildcard, count)
 
     def _get_entity_types(self, doc, term, count, type, type2 = None):
-        return get_types_names(doc, term, count, type, type2)
+        wildcard = self.settings.get_stripped('wildcard', self.SECTION_MAIN, 'no')
 
-    def _set_suggestion(self, docid, docset, term):
+        return get_types_names(doc, term, wildcard, count, type, type2)
+
+    def _set_suggestion(self, docid, docset, name, term):
         return self.create_item(
             category = self.ITEM_CAT,
-            label = docid + ' : ' + term,
-            short_desc = docset + ':' + term,
-            target = docset + ':' + term,
+            label = docid + ' : ' + name + ' ' * 200 + term,
+            short_desc = docset + ':' + name,
+            target = docset + ':' + name,
             args_hint = kp.ItemArgsHint.FORBIDDEN,
             hit_hint = kp.ItemHitHint.IGNORE,
             icon_handle = self._load_icon(docset)
