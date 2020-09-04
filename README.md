@@ -145,7 +145,6 @@ Invoke Keypirinha and put the terms as follows.
 
 ### When `wildcard` is set to `yes`
 
-    ```
     [Docset mnemonic] [Result type]? [*?Search term*?]
 
     e.g.
@@ -153,7 +152,7 @@ Invoke Keypirinha and put the terms as follows.
     php expl*  -> searches entries starting with 'expl' in PHP docset
     php *de  -> searches entries ending with 'de' in PHP docset
     php *pl*  -> searches entries containing 'pl' anywhere in PHP docset
-    ```
+
 
 ## Change Log
 
